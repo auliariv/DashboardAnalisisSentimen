@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Dashboard Analisis Sentimen</title>
+</head>
+<body>
+
+  <!-- header -->
+  <header class="header">
+    <div class="header-wrap">
+      <h1 class="header-title">DASHBOARD SENTIMEN ANALISIS</h1>
+      <p class="header-subtitle">Penerapapan Naive Bayes dan Support Vector Machine</p>
+    </div>
+  </header>
+
+  <!-- menu -->
+  <nav class="menu" aria-label="Navigasi">
+    <div class="menu-box">
+      <a class="menu-link active" href="#tentang" data-target="tentang">Tentang</a>
+      <span class="menu-sep" aria-hidden="true"></span>
+      <a class="menu-link" href="#tujuan" data-target="tujuan">Tujuan</a>
+      <span class="menu-sep" aria-hidden="true"></span>
+      <a class="menu-link" href="#dashboard" data-target="dashboard">Dashboard</a>
+      <span class="menu-sep" aria-hidden="true"></span>
+      <a class="menu-link" href="#analisis" data-target="analisis">Analisis</a>
+    </div>
+  </nav>
+
+  <!-- content -->
+  <main class="wrap">
+
+    <section id="tentang" class="card">
+      <div class="card-head">
+        <h2 class="card-title">Tentang Website</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-style: normal;">
+          Website sederhana ini dibuat sebagai media penunjang untuk menampilkan hasil visualisasi data dari penelitian tugas akhir
+          <strong>"Perbandingan Kinerja Naive Bayes dan SVM untuk Analisis Sentimen Pengguna Aplikasi X Terhadap Danantara"</strong>
+        </p>
+        <br />
+        <p>Visualisasi dibuat menggunakan Google Looker Studio dan diintegrasikan ke dalam website ini.</p>
+      </div>
+    </section>
+
+    <section id="tujuan" class="card">
+      <div class="card-head">
+        <h2 class="card-title">Tujuan Penelitian</h2>
+      </div>
+      <div class="card-body">
+        <p>
+          Tujuan dari penelitian ini adalah untuk membandingkan kinerja algoritma Support Vector Machine dan Naïve Bayes dalam
+          mengklasifikasikan sentimen pengguna X Indonesia terhadap program Danantara. Perbandingan dilakukan berdasarkan nilai
+          evaluasi kinerja berupa akurasi untuk menentukan algoritma yang memiliki performa terbaik dalam mengklasifikasikan sentimen.
+          Selain itu, penelitian ini bertujuan untuk mengidentifikasi kecenderungan sentimen pengguna aplikasi X terhadap Danantara.
+          Hasil dari penelitian ini diharapkan dapat menjadi sumber informasi pendukung dalam memahami kecendurungan sentimen masyarakat
+          di media sosial aplikasi X terhadap Danantara serta menjadi bahan pertimbangan bagi pemangku kebijakan.
+        </p>
+      </div>
+    </section>
+
+    <section id="dashboard" class="card">
+      <div class="card-head">
+        <h2 class="card-title">Dashboard</h2>
+      </div>
+      <div class="card-body">
+        <p>
+          Dashboard di bawah ini merupakan tampilan dari hasil analisis sentimen menggunakan Naive Bayes dan Support Vector Machine
+          yang dibagi menjadi 2 kelas (Positif dan negatif)
+        </p>
+
+        <div class="frame">
+          <iframe
+            src="https://lookerstudio.google.com/embed/reporting/aab38edb-75b2-485b-96a8-c203d983ce71/page/4J6jF"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="analisis" class="card">
+      <div class="card-head">
+        <h2 class="card-title">Analisis Hasil</h2>
+      </div>
+      <div class="card-body">
+        <p>
+          Berdasarkan hasil evaluasi akhir, perbandingan kinerja kedua algoritma menunjukkan bahwa SVM unggul dalam mengklasifikasikan
+          sentimen dibandingkan dengan Naïve Bayes. Hasil pengujian menunjukkan SVM memperoleh akurasi sebesar 87%, sedangkan Naïve
+          Bayes mencapai 83,7%. SVM juga menunjukkan nilai precision, recall, dan f1-score yang lebih seimbang karena kemampuannya
+          memanfaatkan fitur TF-IDF yang berdimensi tinggi dan menemukan hyperplane optimal pada data yang memiliki variasi linguistik
+          tinggi. Di lain sisi, Naïve Bayes lebih terbatas karena asumsi indepedensi fitur dan kesulitannya menangkap konteks bigram
+          sehingga lebih rentan terhadap kesalahan klasifikasi terutama ketika menghadapi ekspresi positif. Peningkatan kinerja Naïve
+          Bayes setelah SMOTE menunjukkan bahwa algoritma ini tetap relevan sebagai baseline model klasifikasi sentimen.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll(".menu-link"));
+
+    function setActiveTab(id) {
+      tabs.forEach(tab => tab.classList.toggle("active", tab.dataset.target === id));
+    }
+
+    window.addEventListener("load", () => {
+      setActiveTab("tentang");
+      const hash = (location.hash || "").replace("#", "");
+      if (hash && document.getElementById(hash)) setActiveTab(hash);
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = tab.dataset.target;
+        const section = document.getElementById(id);
+        if (!section) return;
+
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", `#${id}`);
+        setActiveTab(id);
+      });
+    });
+  </script>
+</body>
+</html>
